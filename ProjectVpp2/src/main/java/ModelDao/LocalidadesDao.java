@@ -5,6 +5,8 @@ import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import interfaces.CRUD;
 import model.DbConnector;
 import model.Localidades;
@@ -20,7 +22,7 @@ public class LocalidadesDao implements CRUD {
 	
 	@Override
 	public List<Localidades> listar() {
-		ArrayList<Localidades>list=new ArrayList<>();
+		ArrayList<Localidades>listLoc=new ArrayList<>();
 		String sql="select * from localidades";
 		try {
 			con=cn.getConn();
@@ -31,12 +33,14 @@ public class LocalidadesDao implements CRUD {
 				loc.setId(rs.getInt("id"));
 				loc.setId_privincia(rs.getInt("id_privincia"));
 				loc.setLocalidad(rs.getString("localidad"));
-				list.add(loc);
+				listLoc.add(loc);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+ 
 			
 		}
-		return list;
+		return listLoc;
 	}
 
 
